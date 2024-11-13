@@ -2,6 +2,7 @@
 MIT License
 
 Copyright (c) 2021 Tim Schneider
+Copyright (c) 2024 Erik Helmut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +23,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Union, Any
+from typing import Any
 
-from .rhp12rna_connector import RHP12RNAConnector
-from .rhp12rn_connector import RHP12RNConnector
+from .model.xl430w250t import XL430W250TConnector
 
-
-class RHP12RN:
-    def __init__(self, connector: Union[RHP12RNConnector, RHP12RNAConnector]):
+class XL430W250T:
+    def __init__(self, connector: XL430W250TConnector):
         self.__connector = connector
 
     def __read(self, field_name: str):
@@ -43,6 +42,14 @@ class RHP12RN:
 
     def __to_abs(self, value, min, max):
         return value * (max - min) + min
+    
+    @property
+    def operating_mode(self):
+        return self.__read("operating_mode")
+    
+    @operating_mode.setter
+    def operating_mode(self, value: int):
+        self.__write("operating_mode", value)
 
     @property
     def position_limit_low(self):
@@ -67,14 +74,6 @@ class RHP12RN:
     @velocity_limit.setter
     def velocity_limit(self, value: int):
         self.__write("velocity_limit", value)
-
-    @property
-    def acceleration_limit(self):
-        return self.__read("acceleration_limit")
-
-    @acceleration_limit.setter
-    def acceleration_limit(self, value: int):
-        self.__write("acceleration_limit", value)
 
     @property
     def torque_enabled(self):
@@ -132,19 +131,3 @@ class RHP12RN:
     @goal_velocity_rel.setter
     def goal_velocity_rel(self, value: float):
         self.goal_velocity = int(round(self.__to_abs(value, -self.velocity_limit, self.velocity_limit)))
-
-    @property
-    def goal_acceleration(self):
-        return self.__read("goal_acceleration")
-
-    @goal_acceleration.setter
-    def goal_acceleration(self, value: int):
-        self.__write("goal_acceleration", value)
-
-    @property
-    def goal_acceleration_rel(self):
-        return self.__to_rel(self.goal_acceleration, -self.acceleration_limit, self.acceleration_limit)
-
-    @goal_acceleration_rel.setter
-    def goal_acceleration_rel(self, value: float):
-        self.goal_acceleration = int(round(self.__to_abs(value, -self.acceleration_limit, self.acceleration_limit)))
