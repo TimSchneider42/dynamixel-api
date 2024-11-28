@@ -2,7 +2,6 @@
 MIT License
 
 Copyright (c) 2021 Tim Schneider
-Copyright (c) 2024 Erik Helmut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Any
+from typing import Union, Any
 
-from .model.xl430w250t import XL430W250TConnector
 
-class XL430W250T:
-    def __init__(self, connector: XL430W250TConnector):
+class Motor:
+    def __init__(self, connector):
         self.__connector = connector
 
+    def __check_field(self, field_name: str):
+        if field_name not in self.__connector.fields.keys():
+            raise AttributeError("{} not available".format(field_name))
+
     def __read(self, field_name: str):
+        self.__check_field(field_name)
         return self.__connector.read_field(field_name)
 
     def __write(self, field_name: str, value: Any):
+        self.__check_field(field_name)
         self.__connector.write_field(field_name, int(value))
 
     def __to_rel(self, value, min, max):
@@ -42,11 +46,11 @@ class XL430W250T:
 
     def __to_abs(self, value, min, max):
         return value * (max - min) + min
-    
+
     @property
     def operating_mode(self):
         return self.__read("operating_mode")
-    
+
     @operating_mode.setter
     def operating_mode(self, value: int):
         self.__write("operating_mode", value)
@@ -74,6 +78,22 @@ class XL430W250T:
     @velocity_limit.setter
     def velocity_limit(self, value: int):
         self.__write("velocity_limit", value)
+
+    @property
+    def acceleration_limit(self):
+        return self.__read("acceleration_limit")
+
+    @acceleration_limit.setter
+    def acceleration_limit(self, value: int):
+        self.__write("acceleration_limit", value)
+
+    @property
+    def pwm_limit(self):
+        return self.__read("pwm_limit")
+
+    @pwm_limit.setter
+    def pwm_limit(self, value: int):
+        self.__write("pwm_limit", value)
 
     @property
     def torque_enabled(self):
@@ -131,3 +151,35 @@ class XL430W250T:
     @goal_velocity_rel.setter
     def goal_velocity_rel(self, value: float):
         self.goal_velocity = int(round(self.__to_abs(value, -self.velocity_limit, self.velocity_limit)))
+
+    @property
+    def goal_acceleration(self):
+        return self.__read("goal_acceleration")
+
+    @goal_acceleration.setter
+    def goal_acceleration(self, value: int):
+        self.__write("goal_acceleration", value)
+
+    @property
+    def goal_acceleration_rel(self):
+        return self.__to_rel(self.goal_acceleration, -self.acceleration_limit, self.acceleration_limit)
+
+    @goal_acceleration_rel.setter
+    def goal_acceleration_rel(self, value: float):
+        self.goal_acceleration = int(round(self.__to_abs(value, -self.acceleration_limit, self.acceleration_limit)))
+
+    @property
+    def goal_pwm(self):
+        return self.__read("goal_pwm")
+
+    @goal_pwm.setter
+    def goal_pwm(self, value: int):
+        self.__write("goal_pwm", value)
+
+    @property
+    def goal_pwm_rel(self):
+        return self.__to_rel(self.goal_pwm, -self.pwm_limit, self.pwm_limit)
+
+    @goal_pwm_rel.setter
+    def goal_pwm_rel(self, value: float):
+        self.goal_pwm = int(round(self.__to_abs(value, -self.pwm_limit, self.pwm_limit)))

@@ -51,7 +51,6 @@ XL430W250T_EEPROM_FIELDS = [
     Field(63, "B", "shutdown", "Shutdown Error Information", True, 52)
 ]
 
-
 XL430W250T_RAM_FIELDS = [
     Field(64, "B", "torque_enable", "Motor Torque On/Off", True, 0),
     Field(65, "B", "led", "LED", True, 0),
@@ -100,7 +99,6 @@ XL430W250T_RAM_FIELDS += [
 XL430W250T_RAM_FIELDS += [
     Field(634 + i, "B", "indirect_data_{}".format(i + 29), "Indirect Data {}".format(i + 29), True, 0) for i in range(28)
 ]
-
 
 XL430W250T_FIELDS = XL430W250T_EEPROM_FIELDS + XL430W250T_RAM_FIELDS
 

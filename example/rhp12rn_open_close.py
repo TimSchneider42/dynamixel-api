@@ -24,10 +24,10 @@ SOFTWARE.
 
 import time
 
-from rhp12rn import RHP12RN, RHP12RNAConnector
+from dynamixel_gripper_control import Motor, RHP12RNAConnector
 
 with RHP12RNAConnector(device="/dev/ttyUSB0", baud_rate=57600, dynamixel_id=1) as connector:
-    rhp12rn = RHP12RN(connector)
+    rhp12rn = Motor(connector)
 
     # Make sure torque is disabled before writing EEPROM values
     rhp12rn.torque_enabled = False

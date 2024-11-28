@@ -25,15 +25,14 @@ SOFTWARE.
 
 import time
 
-from dynamixel_gripper_control import XL430W250T
-from dynamixel_gripper_control.model.xl430w250t import XL430W250TConnector
+from dynamixel_gripper_control import Motor, XL430W250TConnector
 
 with XL430W250TConnector(device="/dev/ttyUSB0", baud_rate=57600, dynamixel_id=1) as connector:
-    gripper = XL430W250T(connector)
+    gripper = Motor(connector)
 
     # Make sure torque is disabled before writing EEPROM values
     gripper.torque_enabled = False
-    
+
     # Set operating mode to extended position control (no need to specify position limits)
     gripper.operating_mode = 4
 
