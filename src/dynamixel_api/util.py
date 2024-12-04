@@ -1,7 +1,7 @@
 """
 MIT License
 
-Copyright (c) 2021 Tim Schneider
+Copyright (c) 2024 Tim Schneider, Erik Helmut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,10 +24,11 @@ SOFTWARE.
 
 from typing import Sequence, Tuple, List
 
-from .dynamixel_connector import DynamixelConnector, Field, DynamixelConnectionError, DynamixelCommunicationError
+from dynamixel_api import DynamixelConnector, Field, DynamixelConnectionError, DynamixelCommunicationError
 
 
 BAUD_RATES = (9_600, 57_600, 115_200, 1_000_000, 2_000_000, 3_000_000, 4_000_000, 4_500_000, 10_500_000)
+MODELS = {35073: "RH-P12-RN", 35074: "RH-P12-RN(A)", 1060: "XL430-W250-T"}
 
 
 def find_grippers(device: str = "/dev/ttyUSB0", baud_rates: Sequence[int] = BAUD_RATES) -> List[Tuple[str, int, int]]:
@@ -46,10 +47,12 @@ def find_grippers(device: str = "/dev/ttyUSB0", baud_rates: Sequence[int] = BAUD
                         device=device, fields=[Field(0, "H", "model_number", "Model Number", False, 0)], baud_rate=r,
                         dynamixel_id=i) as connector:
                     model_number = connector.read_field("model_number")
-                    if model_number in [35073, 35074]:
-                        model_name = "RH-P12-RN" if model_number == 35073 else "RH-P12-RN(A)"
+                    if model_number in MODELS:
+                        model_name = MODELS[model_number]
                         found_devices.append((model_name, r, i))
-                        print("Found {} with ID {} at baud rate {}".format(model_name, i, r))
+                        print("Found {} (model no {}) with ID {} at baud rate {}".format(model_name, model_number, i, r))
+                    else:
+                        print("Found unknown model (model no {}) with ID {} at baud rate {}".format(model_number, i, r))
             except DynamixelCommunicationError:
                 pass
     return found_devices

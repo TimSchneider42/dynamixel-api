@@ -1,8 +1,7 @@
 """
 MIT License
 
-Copyright (c) 2021 Tim Schneider
-Copyright (c) 2024 Erik Helmut
+Copyright (c) 2024 Tim Schneider, Erik Helmut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +24,7 @@ SOFTWARE.
 
 import time
 
-from dynamixel_gripper_control import Motor, XL430W250TConnector
+from dynamixel_api import Motor, XL430W250TConnector
 
 with XL430W250TConnector(device="/dev/ttyUSB0", baud_rate=57600, dynamixel_id=1) as connector:
     gripper = Motor(connector)

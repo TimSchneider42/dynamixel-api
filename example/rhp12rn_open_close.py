@@ -1,7 +1,7 @@
 """
 MIT License
 
-Copyright (c) 2021 Tim Schneider
+Copyright (c) 2024 Tim Schneider, Erik Helmut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@ SOFTWARE.
 
 import time
 
-from dynamixel_gripper_control import Motor, RHP12RNAConnector
+from dynamixel_api import Motor, RHP12RNAConnector
 
 with RHP12RNAConnector(device="/dev/ttyUSB0", baud_rate=57600, dynamixel_id=1) as connector:
     rhp12rn = Motor(connector)
