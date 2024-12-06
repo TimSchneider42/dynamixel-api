@@ -145,7 +145,7 @@ print(connector.read_field("torque_enable"))
 ```
 
 For a comprehensive list of its entries, refer to the [docs of your motor](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/).
-Alternatively for this example, all entries are listed in [`dynamixel_api/models/xl430w250t_connector.py`](dynamixel_api/models/xl430w250t_connector.py).
+Alternatively for this example, all entries are listed in [`dynamixel_api/models/xl430w250t.py`](dynamixel_api/models/xl430w250t.py).
 Note that the motors have to be disabled (`"torque_enabled"` has to be set to 0) for EEPROM values to be written, while RAM values can be written at any time.
 
 For convenience, the `Motor` class provides direct access to the most commonly used fields:
