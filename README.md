@@ -144,8 +144,8 @@ connector.write_field("torque_enable", 1)
 print(connector.read_field("torque_enable"))
 ```
 
-For a comprehensive list of its entries, refer to [docs of your motor](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/).
-Alternatively for this example, all entries are listed in `xl430w250t_connector.py`.
+For a comprehensive list of its entries, refer to the [docs of your motor](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/overview/).
+Alternatively for this example, all entries are listed in [`dynamixel_api/models/xl430w250t_connector.py`](dynamixel_api/models/xl430w250t_connector.py).
 Note that the motors have to be disabled (`"torque_enabled"` has to be set to 0) for EEPROM values to be written, while RAM values can be written at any time.
 
 For convenience, the `Motor` class provides direct access to the most commonly used fields:
@@ -161,15 +161,15 @@ time.sleep(3.0)
 motor.torque_enabled = False
 ```
 
-For a full example of the usage of this package, refer to `example/xl430w250t_open_close.py`.
+For a full example of the usage of this package, refer to [`example/xl430w250t_open_close.py`](example/xl430w250t_open_close.py).
 
 ### Custom Motor Support
-To use a custom motor, define its control table (EEPROM and RAM Fields) and implement a Connector class based on the motor's documentation. Refer to the 'dynamixel_api/models' folder for examples and templates.
+To use a custom motor, define its control table (EEPROM and RAM Fields) and implement a `Connector` class based on the motor's documentation. Refer to the [`dynamixel_api/models`](dynamixel_api/models) folder for examples and templates.
 
-After defining the 'Connector' class, you can use the Motor class to control the motor as shown above. If you want to have additional control over the motor, you can create a child class of the Motor class and add custom methods.
+After defining the `Connector` class, you can use the Motor class to control the motor as shown above. If you want to have additional control over the motor, you can create a child class of the `Motor` class and add custom methods.
 
 ### Finding the correct baud rate and Dynamixel ID
-If the baud rate and/or Dynamixel ID is unknown, the find_grippers method can be used to find those parameters by performing a full sweep. It can be invoked as follows from the command line after installing the package:
+If the baud rate and/or Dynamixel ID is unknown, the `find_grippers`(dynamixel_api/sweep.py) method can be used to find those parameters by performing a full sweep. It can be invoked as follows from the command line after installing the package:
 
 ```sh
 dynamixel-sweep
