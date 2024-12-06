@@ -2,7 +2,7 @@
 name = "dynamixel_api"
 version = "0.0.1"
 authors = [
-  { name = "Tim Schneider", email = "schneider@ias.informatik.tu-darmstadt.de" },
+  { name = "Tim Schneider", email = "tim@robot-learning.de" },
   { name = "Erik Helmut", email = "erik.helmut1@gmail.com" },
 ]
 description = "Python controller for grippers powered by DYNAMIXEL motors."
@@ -13,14 +13,19 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Operating System :: POSIX :: Linux",
 ]
+dependencies = [
+  "dynamixel-sdk @ git+https://github.com/ROBOTIS-GIT/DynamixelSDK.git@c7e1eb71c911b87f7bdeda3c2c9e92276c2b4627#subdirectory=python",
+  "pyserial>=3.5"
+]
+
 
 [project.urls]
 Homepage = "https://github.com/TimSchneider42/dynamixel-api"
 Issues = "https://github.com/TimSchneider42/dynamixel-api/issues"
 
 [tool.setuptools]
-packages = { find = { where = ["src"] } }
+packages = { find = { where = ["dynamixel_api"] } }
 
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
