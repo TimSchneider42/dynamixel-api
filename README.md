@@ -36,9 +36,6 @@
         <li>
           <a href="#installation">Installation</a>
         </li>
-        <li>
-          <a href="#build-from-source">Build from Source</a>
-        </li>
       </ol>
     </li>
     <li>
@@ -82,33 +79,10 @@ To install the `dynamixel-api` library, simply run the following command:
 pip3 install dynamixel-api
 ```
 
-### Build from Source
-If you want to build the `dynamixel-api` library from source, follow these steps:
-
-#### Step 0: Create a workspace if you don't have one
+or clone the repository and install the package locally:
 ```sh
-mkdir -p ~/your_workspace/src
-```
-
-#### Step 1: Set up a virtual environment
-```sh
-cd ~/your_workspace
-python3 -m venv venv
-source venv/bin/activate
-```
-
-#### Step 2: Clone the dynamixel-api repository into your workspace
-```sh
-cd ~/your_workspace/src
 git clone git@github.com:TimSchneider42/dynamixel-api.git
-```
-
-#### Step 3: Build and install the dynamixel-api library
-```sh
-cd ~/your_workspace/src/dynamixel-api
-python3 -m pip install --upgrade build
-python3 -m build
-pip3 install dist/dynamixel-api-1.0.0.tar.gz
+pip3 install ./dynamixel-api
 ```
 
 ## Usage
