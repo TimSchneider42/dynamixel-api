@@ -18,13 +18,12 @@ dependencies = [
   "pyserial>=3.5"
 ]
 
-
 [project.urls]
 Homepage = "https://github.com/TimSchneider42/dynamixel-api"
 Issues = "https://github.com/TimSchneider42/dynamixel-api/issues"
 
-[tool.setuptools]
-packages = { find = { where = ["dynamixel_api"] } }
+[project.scripts]
+dynamixel-sweep = "dynamixel_api.sweep:main"
 
 [build-system]
 requires = ["setuptools"]

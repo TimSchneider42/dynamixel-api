@@ -24,8 +24,9 @@ SOFTWARE.
 
 from typing import Sequence, Tuple, List
 
-from dynamixel_api import DynamixelConnector, Field, DynamixelConnectionError, DynamixelCommunicationError
+import argparse
 
+from dynamixel_api import DynamixelConnector, Field, DynamixelConnectionError, DynamixelCommunicationError
 
 BAUD_RATES = (9_600, 57_600, 115_200, 1_000_000, 2_000_000, 3_000_000, 4_000_000, 4_500_000, 10_500_000)
 MODELS = {35073: "RH-P12-RN", 35074: "RH-P12-RN(A)", 1060: "XL430-W250-T"}
@@ -50,9 +51,19 @@ def find_grippers(device: str = "/dev/ttyUSB0", baud_rates: Sequence[int] = BAUD
                     if model_number in MODELS:
                         model_name = MODELS[model_number]
                         found_devices.append((model_name, r, i))
-                        print("Found {} (model no {}) with ID {} at baud rate {}".format(model_name, model_number, i, r))
+                        print(
+                            "Found {} (model no {}) with ID {} at baud rate {}".format(model_name, model_number, i, r))
                     else:
                         print("Found unknown model (model no {}) with ID {} at baud rate {}".format(model_number, i, r))
             except DynamixelCommunicationError:
                 pass
     return found_devices
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Find connected dynamixel devices.")
+    parser.add_argument("--device", type=str, default="/dev/ttyUSB0", help="Serial device to sweep.")
+    parser.add_argument("--baud_rates", type=int, nargs="+", default=BAUD_RATES, help="Baud rates to test.")
+    args = parser.parse_args()
+    find_grippers(args.device, args.baud_rates)
+
