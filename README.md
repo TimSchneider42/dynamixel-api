@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">Python API for Dynamixel Motors</h3>
+    <h1 align="center">Python API for Dynamixel Motors</h1>
 
   <p align="center">
     Elevate your robotics projects with dynamixel-api -- a powerful and user-friendly Python wrapper for the Dynamixel SDK libary, designed to effortlessly control various Dynamixel motors.
