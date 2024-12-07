@@ -4,7 +4,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <h1 align="center">Python API for Dynamixel Motors</h1>
+  <a href="https://github.com/TimSchneider42/dynamixel-api">
+    <img src="docs/python_dynamixel_api_logo.png" alt="dynamixel_api" height="170">
+  </a>
+
+  <h3 align="center">Python API for Dynamixel Motors</h3>
 
   <p align="center">
     Elevate your robotics projects with dynamixel-api -- a powerful and user-friendly Python wrapper for the Dynamixel SDK libary, designed to effortlessly control various Dynamixel motors.
