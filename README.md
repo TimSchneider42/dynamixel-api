@@ -4,10 +4,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/TimSchneider42/dynamixel-api">
-    <img src="docs/python_dynamixel_sdk_logo.png" alt="umi-grip-controller" height="170">
-  </a>
-
   <h3 align="center">Python API for Dynamixel Motors</h3>
 
   <p align="center">
