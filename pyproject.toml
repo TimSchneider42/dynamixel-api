@@ -14,7 +14,7 @@ classifiers = [
   "Operating System :: POSIX :: Linux",
 ]
 dependencies = [
-  "dynamixel-sdk @ git+https://github.com/ROBOTIS-GIT/DynamixelSDK.git@c7e1eb71c911b87f7bdeda3c2c9e92276c2b4627#subdirectory=python",
+  "dynamixel-sdk",
   "pyserial>=3.5"
 ]
 
