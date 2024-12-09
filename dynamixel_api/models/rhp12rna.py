@@ -24,7 +24,7 @@ SOFTWARE.
 
 import warnings
 
-from .dynamixel_connector import DynamixelConnector, Field
+from ..dynamixel_connector import DynamixelConnector, Field
 
 RHP12RNA_EEPROM_FIELDS = [
     Field(0, "H", "model_number", "Model Number", False, 35074),

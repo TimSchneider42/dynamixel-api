@@ -1,7 +1,7 @@
 """
 MIT License
 
-Copyright (c) 2021 Tim Schneider
+Copyright (c) 2024 Tim Schneider, Erik Helmut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,18 +24,21 @@ SOFTWARE.
 
 from typing import Union, Any
 
-from .rhp12rna_connector import RHP12RNAConnector
-from .rhp12rn_connector import RHP12RNConnector
 
-
-class RHP12RN:
-    def __init__(self, connector: Union[RHP12RNConnector, RHP12RNAConnector]):
+class Motor:
+    def __init__(self, connector):
         self.__connector = connector
 
+    def __check_field(self, field_name: str):
+        if field_name not in self.__connector.fields.keys():
+            raise AttributeError("{} not available".format(field_name))
+
     def __read(self, field_name: str):
+        self.__check_field(field_name)
         return self.__connector.read_field(field_name)
 
     def __write(self, field_name: str, value: Any):
+        self.__check_field(field_name)
         self.__connector.write_field(field_name, int(value))
 
     def __to_rel(self, value, min, max):
@@ -43,6 +46,14 @@ class RHP12RN:
 
     def __to_abs(self, value, min, max):
         return value * (max - min) + min
+
+    @property
+    def operating_mode(self):
+        return self.__read("operating_mode")
+
+    @operating_mode.setter
+    def operating_mode(self, value: int):
+        self.__write("operating_mode", value)
 
     @property
     def position_limit_low(self):
@@ -75,6 +86,14 @@ class RHP12RN:
     @acceleration_limit.setter
     def acceleration_limit(self, value: int):
         self.__write("acceleration_limit", value)
+
+    @property
+    def pwm_limit(self):
+        return self.__read("pwm_limit")
+
+    @pwm_limit.setter
+    def pwm_limit(self, value: int):
+        self.__write("pwm_limit", value)
 
     @property
     def torque_enabled(self):
@@ -148,3 +167,19 @@ class RHP12RN:
     @goal_acceleration_rel.setter
     def goal_acceleration_rel(self, value: float):
         self.goal_acceleration = int(round(self.__to_abs(value, -self.acceleration_limit, self.acceleration_limit)))
+
+    @property
+    def goal_pwm(self):
+        return self.__read("goal_pwm")
+
+    @goal_pwm.setter
+    def goal_pwm(self, value: int):
+        self.__write("goal_pwm", value)
+
+    @property
+    def goal_pwm_rel(self):
+        return self.__to_rel(self.goal_pwm, -self.pwm_limit, self.pwm_limit)
+
+    @goal_pwm_rel.setter
+    def goal_pwm_rel(self, value: float):
+        self.goal_pwm = int(round(self.__to_abs(value, -self.pwm_limit, self.pwm_limit)))

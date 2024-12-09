@@ -1,7 +1,7 @@
 """
 MIT License
 
-Copyright (c) 2021 Tim Schneider
+Copyright (c) 2024 Tim Schneider, Erik Helmut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,35 +24,27 @@ SOFTWARE.
 
 import time
 
-from rhp12rn import RHP12RN, RHP12RNAConnector
+from dynamixel_api import Motor, XL430W250TConnector
 
-with RHP12RNAConnector(device="/dev/ttyUSB0", baud_rate=57600, dynamixel_id=1) as connector:
-    rhp12rn = RHP12RN(connector)
+with XL430W250TConnector(device="/dev/ttyUSB0", baud_rate=57600, dynamixel_id=1) as connector:
+    gripper = Motor(connector)
 
     # Make sure torque is disabled before writing EEPROM values
-    rhp12rn.torque_enabled = False
-    rhp12rn.position_limit_high = 660
+    gripper.torque_enabled = False
 
-    rhp12rn.torque_enabled = True
+    # Set operating mode to extended position control (no need to specify position limits)
+    gripper.operating_mode = 4
+
+    gripper.torque_enabled = True
     print("Enabled motor.")
 
-    print("Opening gripper...")
-    rhp12rn.goal_position_rel = 0.0
-    while rhp12rn.current_position_rel > 0.01:
-        time.sleep(0.1)
-        print("\rCurrent position: {}".format(rhp12rn.current_position_rel), end="")
-    print("\rCurrent position: {}".format(rhp12rn.current_position_rel))
-    print("Gripper fully opened.")
-
-    time.sleep(1.0)
-
     print("Closing gripper...")
-    rhp12rn.goal_position_rel = 1.0
-    while rhp12rn.current_position_rel < 0.99:
+    gripper.goal_position = -2380
+    while gripper.current_position > gripper.goal_position + 20:
         time.sleep(0.1)
-        print("\rCurrent position: {}".format(rhp12rn.current_position_rel), end="")
-    print("\rCurrent position: {}".format(rhp12rn.current_position_rel))
+        print("\rCurrent position: {}".format(gripper.current_position), end="")
+    print("\rCurrent position: {}".format(gripper.current_position))
     print("Gripper fully closed.")
 
-    rhp12rn.torque_enabled = False
+    gripper.torque_enabled = False
     print("Disabled motor.")
