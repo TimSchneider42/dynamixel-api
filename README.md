@@ -5,7 +5,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/TimSchneider42/dynamixel-api">
-    <img src="docs/python_dynamixel_api_logo.png" alt="dynamixel_api" height="170">
+    <img src="https://raw.githubusercontent.com/TimSchneider42/dynamixel-api/master/docs/python_dynamixel_api_logo.png" alt="dynamixel_api" height="170">
   </a>
 
   <h3 align="center">Python API for Dynamixel Motors</h3>
