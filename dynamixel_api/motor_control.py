@@ -113,7 +113,7 @@ class Motor:
 
     @property
     def current_velocity(self):
-        return self.__read("present_position")
+        return self.__read("present_velocity")
 
     @property
     def current_velocity_rel(self):
