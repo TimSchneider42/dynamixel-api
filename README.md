@@ -88,7 +88,7 @@ pip3 install ./dynamixel-api
 ## Usage
 The `dynamixel-api` library provides out-of-the-box support for the following hardware:
 - [ROBOTIS RH-P12-RN and RH-P12-RN(A) Grippers](https://emanual.robotis.com/docs/en/platform/rh_p12_rn/): These are advanced robotic grippers powered by Dynamixel motors.
-- [DYNAMIXEL XL430-W250-T Motor](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/): The motor used to control the [actuated-UMI gripper](https://github.com/erikhelmut/actuated-umi).
+- [DYNAMIXEL XL430-W250-T Motor](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/): The motor used to control the [actuated-UMI gripper](https://github.com/actuated-umi/actuated-umi-gripper).
 
 ### Control the Dynamixel Motor
 
