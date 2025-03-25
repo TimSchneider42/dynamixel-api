@@ -117,8 +117,7 @@ class Motor:
 
     @property
     def current_velocity_rel(self):
-        vel_lim = self.velocity_limit
-        return self.__to_rel(self.current_position, -vel_lim, vel_lim)
+        return self.__to_rel(self.current_velocity, 0, self.velocity_limit)
 
     @property
     def goal_position(self):
@@ -146,11 +145,11 @@ class Motor:
 
     @property
     def goal_velocity_rel(self):
-        return self.__to_rel(self.goal_velocity, -self.velocity_limit, self.velocity_limit)
+        return self.__to_rel(self.goal_velocity, 0, self.velocity_limit)
 
     @goal_velocity_rel.setter
     def goal_velocity_rel(self, value: float):
-        self.goal_velocity = int(round(self.__to_abs(value, -self.velocity_limit, self.velocity_limit)))
+        self.goal_velocity = int(round(self.__to_abs(value, 0, self.velocity_limit)))
 
     @property
     def goal_acceleration(self):
@@ -162,11 +161,11 @@ class Motor:
 
     @property
     def goal_acceleration_rel(self):
-        return self.__to_rel(self.goal_acceleration, -self.acceleration_limit, self.acceleration_limit)
+        return self.__to_rel(self.goal_acceleration, 0, self.acceleration_limit)
 
     @goal_acceleration_rel.setter
     def goal_acceleration_rel(self, value: float):
-        self.goal_acceleration = int(round(self.__to_abs(value, -self.acceleration_limit, self.acceleration_limit)))
+        self.goal_acceleration = int(round(self.__to_abs(value, 0, self.acceleration_limit)))
 
     @property
     def goal_pwm(self):
