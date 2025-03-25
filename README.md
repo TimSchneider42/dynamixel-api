@@ -76,7 +76,7 @@ To use the `dynamixel-api` library, you need to have a Dynamixel motor and the a
 ### Installation
 To install the `dynamixel-api` library, simply run the following command:
 ```sh
-pip3 install dynamixel-api
+pip install dynamixel-api
 ```
 
 or clone the repository and install the package locally:
