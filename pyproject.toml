@@ -1,6 +1,6 @@
 [project]
 name = "dynamixel-api"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
   { name = "Tim Schneider", email = "tim@robot-learning.de" },
   { name = "Erik Helmut", email = "erik.helmut1@gmail.com" },
