@@ -81,8 +81,7 @@ pip3 install dynamixel-api
 
 or clone the repository and install the package locally:
 ```sh
-git clone https://github.com/TimSchneider42/dynamixel-api.git
-pip3 install ./dynamixel-api
+pip install git+https://github.com/TimSchneider42/dynamixel-api.git
 ```
 
 ## Usage
