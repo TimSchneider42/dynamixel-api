@@ -29,18 +29,6 @@ class Motor:
     def __init__(self, connector):
         self.__connector = connector
 
-    def __check_field(self, field_name: str):
-        if field_name not in self.__connector.fields.keys():
-            raise AttributeError("{} not available".format(field_name))
-
-    def __read(self, field_name: str):
-        self.__check_field(field_name)
-        return self.__connector.read_field(field_name)
-
-    def __write(self, field_name: str, value: Any):
-        self.__check_field(field_name)
-        self.__connector.write_field(field_name, int(value))
-
     def __to_rel(self, value, min, max):
         return (value - min) / (max - min)
 
@@ -49,63 +37,63 @@ class Motor:
 
     @property
     def operating_mode(self):
-        return self.__read("operating_mode")
+        return self.__connector.read_field("operating_mode")
 
     @operating_mode.setter
     def operating_mode(self, value: int):
-        self.__write("operating_mode", value)
+        self.__connector.write_field("operating_mode", value)
 
     @property
     def position_limit_low(self):
-        return self.__read("min_position_limit")
+        return self.__connector.read_field("min_position_limit")
 
     @property
     def position_limit_high(self):
-        return self.__read("max_position_limit")
+        return self.__connector.read_field("max_position_limit")
 
     @position_limit_low.setter
     def position_limit_low(self, value: int):
-        self.__write("min_position_limit", value)
+        self.__connector.write_field("min_position_limit", value)
 
     @position_limit_high.setter
     def position_limit_high(self, value: int):
-        self.__write("max_position_limit", value)
+        self.__connector.write_field("max_position_limit", value)
 
     @property
     def velocity_limit(self):
-        return self.__read("velocity_limit")
+        return self.__connector.read_field("velocity_limit")
 
     @velocity_limit.setter
     def velocity_limit(self, value: int):
-        self.__write("velocity_limit", value)
+        self.__connector.write_field("velocity_limit", value)
 
     @property
     def acceleration_limit(self):
-        return self.__read("acceleration_limit")
+        return self.__connector.read_field("acceleration_limit")
 
     @acceleration_limit.setter
     def acceleration_limit(self, value: int):
-        self.__write("acceleration_limit", value)
+        self.__connector.write_field("acceleration_limit", value)
 
     @property
     def pwm_limit(self):
-        return self.__read("pwm_limit")
+        return self.__connector.read_field("pwm_limit")
 
     @pwm_limit.setter
     def pwm_limit(self, value: int):
-        self.__write("pwm_limit", value)
+        self.__connector.write_field("pwm_limit", value)
 
     @property
     def torque_enabled(self):
-        return self.__read("torque_enable")
+        return self.__connector.read_field("torque_enable")
 
     @torque_enabled.setter
     def torque_enabled(self, value: bool):
-        self.__write("torque_enable", value)
+        self.__connector.write_field("torque_enable", value)
 
     @property
     def current_position(self):
-        return self.__read("present_position")
+        return self.__connector.read_field("present_position")
 
     @property
     def current_position_rel(self):
@@ -113,7 +101,7 @@ class Motor:
 
     @property
     def current_velocity(self):
-        return self.__read("present_velocity")
+        return self.__connector.read_field("present_velocity")
 
     @property
     def current_velocity_rel(self):
@@ -121,11 +109,11 @@ class Motor:
 
     @property
     def goal_position(self):
-        return self.__read("goal_position")
+        return self.__connector.read_field("goal_position")
 
     @goal_position.setter
     def goal_position(self, value: int):
-        self.__write("goal_position", value)
+        self.__connector.write_field("goal_position", value)
 
     @property
     def goal_position_rel(self):
@@ -137,11 +125,11 @@ class Motor:
 
     @property
     def goal_velocity(self):
-        return self.__read("goal_velocity")
+        return self.__connector.read_field("goal_velocity")
 
     @goal_velocity.setter
     def goal_velocity(self, value: int):
-        self.__write("goal_velocity", value)
+        self.__connector.write_field("goal_velocity", value)
 
     @property
     def goal_velocity_rel(self):
@@ -153,11 +141,11 @@ class Motor:
 
     @property
     def goal_acceleration(self):
-        return self.__read("goal_acceleration")
+        return self.__connector.read_field("goal_acceleration")
 
     @goal_acceleration.setter
     def goal_acceleration(self, value: int):
-        self.__write("goal_acceleration", value)
+        self.__connector.write_field("goal_acceleration", value)
 
     @property
     def goal_acceleration_rel(self):
@@ -169,11 +157,11 @@ class Motor:
 
     @property
     def goal_pwm(self):
-        return self.__read("goal_pwm")
+        return self.__connector.read_field("goal_pwm")
 
     @goal_pwm.setter
     def goal_pwm(self, value: int):
-        self.__write("goal_pwm", value)
+        self.__connector.write_field("goal_pwm", value)
 
     @property
     def goal_pwm_rel(self):

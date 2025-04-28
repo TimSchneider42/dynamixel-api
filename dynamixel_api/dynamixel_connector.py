@@ -37,8 +37,6 @@ Field = NamedTuple("Field", (
     ("initial_value", Optional[int])))
 
 
-# TODO: properly implement bulk reading
-
 class DynamixelError(Exception):
     pass
 
@@ -158,7 +156,7 @@ class DynamixelConnector:
         self.__field_dict = {f.name: f for f in fields}
         self.__future_queue = deque()
         self.__last_tx = 0
-        self.__tx_wait_time = 0.001
+        self.__tx_wait_time = 0.002
 
     def connect(self):
         if not self.connected:
@@ -187,9 +185,17 @@ class DynamixelConnector:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.disconnect()
 
+    def __del__(self):
+        self.disconnect()
+
+    def __check_field(self, field_name: str):
+        if field_name not in self.__field_dict.keys():
+            raise AttributeError("{} not available".format(field_name))
+
     def read_field_async(self, field_name: str):
         if not self.connected:
             raise DynamixelError("Controller is not connected.")
+        self.__check_field(field_name)
         field = self.__field_dict[field_name]
         # Not waiting between two transmissions causes the controller to not reply
         now = time.time()
@@ -208,6 +214,7 @@ class DynamixelConnector:
     def write_field_async(self, field_name: str, value: int):
         if not self.connected:
             raise DynamixelError("Controller is not connected.")
+        self.__check_field(field_name)
         field = self.__field_dict[field_name]
         data = list(struct.pack("<{}".format(field.data_type), value))
         # Not waiting between two transmissions causes the controller to not reply
