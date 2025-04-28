@@ -175,6 +175,7 @@ class DynamixelConnector:
 
     def disconnect(self):
         if self.connected:
+            self.write_field("torque_enable", False)
             self.__port_handler.closePort()
             self.__port_handler = None
 
