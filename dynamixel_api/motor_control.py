@@ -34,6 +34,10 @@ class Motor:
 
     def __to_abs(self, value, min, max):
         return value * (max - min) + min
+    
+    @property
+    def connector(self):
+        return self.__connector
 
     @property
     def operating_mode(self):
