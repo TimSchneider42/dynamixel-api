@@ -42,6 +42,12 @@
       <a href="#usage">Usage</a>
       <ol>
         <li>
+          <a href="#increase-baud-rate">Increase Baud Rate</a>
+        </li>
+        <li>
+          <a href="#reduce-latency">Reduce Latency</a>
+        </li>
+        <li>
             <a href="#control-the-dynamixel-motor">Control the Dynamixel Motor</a>
         </li>
         <li>
@@ -88,6 +94,16 @@ pip install git+https://github.com/TimSchneider42/dynamixel-api.git
 The `dynamixel-api` library provides out-of-the-box support for the following hardware:
 - [ROBOTIS RH-P12-RN and RH-P12-RN(A) Grippers](https://emanual.robotis.com/docs/en/platform/rh_p12_rn/): These are advanced robotic grippers powered by Dynamixel motors.
 - [DYNAMIXEL XL430-W250-T Motor](https://emanual.robotis.com/docs/en/dxl/x/xl430-w250/): The motor used to control the [actuated-UMI gripper](https://github.com/actuated-umi/actuated-umi-gripper).
+
+### Increase Baud Rate
+To increase the baud rate of your Dynamixel motor, first download the [Dynamixel Wizard 2.0](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/). Select the Baud Rate tab and set the baud rate to the desired value. The default baud rate for the XL-430-W-250-T motor is 57600, but you can set it to a higher value (e.g. 2000000) for faster communication. Make sure to set the same baud rate in your code when creating the `Connector` instance.
+
+### Reduce Latency
+If you encounter latency issues when using the `dynamixel-api` library, you can try reducing the latency by running the [`reduce_latency.sh`](reduce_latency.sh) script. This script sets the Ubuntu latency_timer to 1. Run the script with the following command:
+
+```sh
+bash reduce_latency.sh
+```
 
 ### Control the Dynamixel Motor
 
